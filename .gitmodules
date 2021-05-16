@@ -5,3 +5,12 @@
 	path = cmake/cable
 	url = https://github.com/ethereum/cable
 	branch = master
+[submodule "CLI11"]
+	path = CLI11
+	url = https://github.com/CLIUtils/CLI11
+[submodule "jsoncpp"]
+	path = jsoncpp
+	url = https://github.com/open-source-parsers/jsoncpp
+[submodule "ethash"]
+	path = ethash
+	url = https://github.com/chfast/ethash
