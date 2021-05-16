@@ -340,6 +340,8 @@ void EthStratumClient::start_connect()
         enqueue_response_plea();
         m_solution_submitted_max_id = 0;
 
+        using namespace boost::placeholders;
+
         // Start connecting async
         if (m_conn->SecLevel() != SecureLevel::NONE)
         {

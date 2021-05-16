@@ -101,6 +101,9 @@ void EthGetworkClient::begin_connect()
     {
         // Pick the first endpoint in list.
         // Eventually endpoints get discarded on connection errors
+
+        using namespace boost::placeholders;
+
         m_endpoint = m_endpoints.front();
         m_socket.async_connect(
             m_endpoint, m_io_strand.wrap(boost::bind(&EthGetworkClient::handle_connect, this, _1)));

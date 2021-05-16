@@ -763,7 +763,8 @@ bool CLMiner::initEpoch_internal()
         string code;
 
         cllog << "OpenCL kernel";
-        code = string(ethash_cl, ethash_cl + sizeof(ethash_cl));
+        // code = string(ethash_cl, ethash_cl + sizeof(ethash_cl));
+        code = "TODO";
 
         addDefinition(code, "WORKSIZE", m_settings.localWorkSize);
         addDefinition(code, "ACCESSES", 64);
