@@ -1,13 +1,51 @@
 # CLI11 639a8a
 # jsoncpp 1.8.1
 {
-  'target_defaults': {
+    'target_defaults': {
     'xcode_settings': {
       'CC': 'clang++',
       'CLANG_CXX_LANGUAGE_STANDARD': 'c++0x',
       'ARCHS': ['x86_64'],
     },
+    'configurations': {
+      'msvs_configuration_attributes': {
+        'CharacterSet': '1'
+      },
+      'Debug_x64': {
+        'msvs_configuration_platform': 'x64',
+        'defines': [
+            'DEBUG',
+            'WINDOWS',
+            # 'AP_ENGINE_CLIENT_BACKEND',
+        ],
+        'include_dirs': [
+        ],
+        'msvs_settings': {
+          'VCCLCompilerTool': {
+            'RuntimeLibrary': '3', # /MDd
+            'Optimization': '0',
+          },
+        },
+      },
+      'Release_x64': {
+        'msvs_configuration_platform': 'x64',
+        'defines': [
+            'NDEBUG',
+            'WINDOWS',
+            # 'AP_ENGINE_CLIENT_BACKEND',
+        ],
+        'msvs_settings': {
+          'VCCLCompilerTool': {
+            'RuntimeLibrary': '2' # /MD
+          },
+          'VCLinkerTool': {
+            'GenerateDebugInformation': 'true',
+          },
+        },
+      },
+    },
   },
+
   'targets': [
     {
       'include_dirs': [
