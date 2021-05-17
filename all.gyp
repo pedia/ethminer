@@ -1,5 +1,8 @@
 # CLI11 639a8a
 # jsoncpp 1.8.1
+# ethash master
+
+# gyp --depth=. -f ninja all.gyp && ninja -C out/Default
 {
     'target_defaults': {
     'xcode_settings': {
@@ -48,18 +51,19 @@
 
   'targets': [
     {
+      'target_name': 'ethminer',
       'include_dirs': [
         '.',
         '../boost_1_76_0',
         'ethash/include',
         'ethash/include/ethash',
-        'jsoncpp/include',
+        'thirdparty/jsoncpp/include',
         '/usr/local/opt/openssl/include',  # openssl
-        'CLI11/include',
+        'thirdparty/CLI11/include',
       ],
-      'target_name': 'ethminer',
       'type': 'executable',
       'dependencies': [
+        'core',
         'ethash',
         'jsoncpp',
       ],
@@ -95,6 +99,98 @@
         ]
       },
       'sources': [
+        'ethminer/main.cpp',
+      ],
+      'xcode_settings': {
+        'CLANG_CXX_LIBRARY': 'libc++',
+      },
+    },
+    ##########
+    {
+      'target_name': 'fminer',
+      'type': 'shared_library',
+      'include_dirs': [
+        '.',
+        '../boost_1_76_0',
+        'ethash/include',
+        'ethash/include/ethash',
+        'thirdparty/jsoncpp/include',
+        '/usr/local/opt/openssl/include',  # openssl
+        'thirdparty/CLI11/include',
+      ],
+      'dependencies': [
+        'core',
+        'ethash',
+        'jsoncpp',
+      ],
+      'defines': [
+        # 'ETH_ETHASHCL',
+        # 'ETH_ETHASHCUDA',
+        'ETH_ETHASHCPU',
+        'API_CORE',
+      ],
+      'library_dirs': [
+        '../boost_1_76_0/stage/lib',
+        '/usr/local/opt/openssl@1.1/lib',
+      ],
+      'libraries': [
+        '-lboost_filesystem',
+        '-lboost_system',
+        '-lboost_thread',
+        '-lstdc++',
+        '-lm',
+        '-lcrypto',
+        '-lssl',
+        # '-lOpenCL',
+        # 'OpenCL.framework',
+      ],
+      'mac_framework_dirs': [
+        '/System/Library/PrivateFrameworks',
+        '/System/Library/Frameworks',
+        '$(SDKROOT)/System/Library/Frameworks/Foundation.framework'
+      ],
+      'link_settings': {
+        'libraries': [
+          '$(SDKROOT)/System/Library/Frameworks/OpenCL.framework',
+        ]
+      },
+      'sources': [
+        'ethminer/main.cpp',
+      ],
+      'xcode_settings': {
+        'CLANG_CXX_LIBRARY': 'libc++',
+      },
+    },
+    ##########
+    {
+      'target_name': 'core',
+      'type': 'static_library',
+      'include_dirs': [
+        '.',
+        '../boost_1_76_0',
+        'ethash/include',
+        'ethash/include/ethash',
+        'thirdparty/jsoncpp/include',
+        '/usr/local/opt/openssl/include',  # openssl
+        'thirdparty/CLI11/include',
+      ],
+      'defines': [
+        # 'ETH_ETHASHCL',
+        # 'ETH_ETHASHCUDA',
+        'ETH_ETHASHCPU',
+        'API_CORE',
+      ],
+      'mac_framework_dirs': [
+        '/System/Library/PrivateFrameworks',
+        '/System/Library/Frameworks',
+        '$(SDKROOT)/System/Library/Frameworks/Foundation.framework'
+      ],
+      'link_settings': {
+        'libraries': [
+          '$(SDKROOT)/System/Library/Frameworks/OpenCL.framework',
+        ]
+      },
+      'sources': [
         # 'libethash-cl/CLMiner.cpp',
         'libethcore/EthashAux.cpp',
         'libethcore/Farm.cpp',
@@ -103,7 +199,7 @@
         'libdevcore/Worker.cpp',
         'libdevcore/CommonData.cpp',
         'libdevcore/FixedHash.cpp',
-        'ethminer/main.cpp',
+        # 'ethminer/main.cpp',
         'libhwmon/wrapnvml.cpp',
         'libhwmon/wrapadl.cpp',
         'libhwmon/wraphelper.cpp',
@@ -118,13 +214,12 @@
         'libpoolprotocols/getwork/EthGetworkClient.cpp',
       ],
       'xcode_settings': {
-        # 'MACOSX_DEPLOYMENT_TARGET': '10.9',
         'CLANG_CXX_LIBRARY': 'libc++',
       },
     },
     {
-      'include_dirs': ['ethash/include',],
       'target_name': 'ethash',
+      'include_dirs': ['ethash/include',],
       'type': 'static_library',
       'sources': [
         'ethash/lib/ethash/progpow.cpp',
@@ -136,13 +231,13 @@
       ],
     },
     {
-      'include_dirs': ['jsoncpp/include',],
       'target_name': 'jsoncpp',
       'type': 'static_library',
+      'include_dirs': ['thirdparty/jsoncpp/include',],
       'sources': [
-        'jsoncpp/src/lib_json/json_reader.cpp',
-        'jsoncpp/src/lib_json/json_value.cpp',
-        'jsoncpp/src/lib_json/json_writer.cpp',
+        'thirdparty/jsoncpp/src/json_reader.cpp',
+        'thirdparty/jsoncpp/src/json_value.cpp',
+        'thirdparty/jsoncpp/src/json_writer.cpp',
       ],
     },
     # {

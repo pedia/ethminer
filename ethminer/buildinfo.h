@@ -14,9 +14,9 @@ inline struct ethminer_buildinfo* ethminer_get_buildinfo()
 {
     static struct ethminer_buildinfo st = {
         "ce52c74021b6fbaaddea3c3c52f64f24e39ea3e9",
-        "",
+        "fminer",
         "gyp",
-        "",
+        "latest",
         "ethminer/ce52c74021b6fbaaddea3c3c52f64f24e39ea3e9",
     };
     return &st;
