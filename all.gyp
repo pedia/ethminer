@@ -19,14 +19,13 @@
         'defines': [
             'DEBUG',
             'WINDOWS',
-            # 'AP_ENGINE_CLIENT_BACKEND',
         ],
         'include_dirs': [
         ],
         'msvs_settings': {
           'VCCLCompilerTool': {
-            'RuntimeLibrary': '3', # /MDd
-            'Optimization': '0',
+            'RuntimeLibrary': 'MultiThreadedDebug', # /MTd 3
+            'Optimization': 'Disabled',
           },
         },
       },
@@ -35,11 +34,11 @@
         'defines': [
             'NDEBUG',
             'WINDOWS',
-            # 'AP_ENGINE_CLIENT_BACKEND',
         ],
         'msvs_settings': {
           'VCCLCompilerTool': {
-            'RuntimeLibrary': '2' # /MD
+            'RuntimeLibrary': 'MultiThreaded', # /MT 2
+            'Optimization': 'Full',
           },
           'VCLinkerTool': {
             'GenerateDebugInformation': 'true',
