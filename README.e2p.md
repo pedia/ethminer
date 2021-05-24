@@ -5,7 +5,7 @@
 
 # Algorithm
 | miner | algo |
-|---|---| 
+|---|---|
 | cpu | ethash |
 | opencl | ? |
 | cuda | ethash |
@@ -31,3 +31,9 @@ TODO:
 - Query status
 
 ### Json RPC API
+# cpu temperature
+| system | code |
+|---|---|
+| mac | https://github.com/lavoiesl/osx-cpu-temp |
+| linux | https://github.com/shibatch/cputemp |
+| windows/nvidia | https://github.com/openhardwaremonitor/openhardwaremonitor/blob/master/Hardware/Nvidia/NVAPI.cs |
